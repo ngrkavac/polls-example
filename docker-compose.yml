@@ -1,0 +1,14 @@
+version: "3"
+services:
+  polls-database:
+    image: mongo:3.2.4
+    container_name: "polls-database"
+    ports:
+      - 27017:27017
+    command: --smallfiles
+  api:
+    image: polls-docker-image
+    ports:
+      - 9091:8080
+    links:
+      - polls-database
