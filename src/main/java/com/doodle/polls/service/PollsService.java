@@ -19,7 +19,7 @@ public class PollsService {
     PollRepository pollRepository;
 
     public List<Poll> getPollsForUser(String user, String searchParam, String fromDate) {
-        List<Poll> polls = searchParam != null ? pollRepository.findByName(getCriteria(searchParam), user) : pollRepository.findByName(user);
+        List<Poll> polls = searchParam != null ? pollRepository.findAllBy(getCriteria(searchParam)) : pollRepository.findByName(user);
         return fromDate != null ? filterPollsFromdate(polls, fromDate) : polls;
     }
 
@@ -38,7 +38,7 @@ public class PollsService {
             return timestamp.after(fromTimestamp);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid date", e);
+                    HttpStatus.BAD_REQUEST, "Invalid date format: " + e);
         }
     }
 }

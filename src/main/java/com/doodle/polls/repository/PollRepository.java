@@ -12,7 +12,5 @@ public interface PollRepository extends MongoRepository<Poll, String> {
 
     @Query("{'initiator.name': ?0}")
     List<Poll> findByName(@Param("name") String name);
-    @Query("{'initiator.name': ?0}")
-    List<Poll> findByName(TextCriteria criteria, @Param("name") String name);
-
+    List<Poll> findAllBy(TextCriteria criteria);
 }
